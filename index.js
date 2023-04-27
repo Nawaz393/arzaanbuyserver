@@ -13,7 +13,7 @@ const SponserAdRoute = require("./Routers/SponserAdsRoute");
 const paymentRoute = require("./Routers/PaymentRoutes");
 
 const options = {
-  origin: ["http://localhost:5174", "http://localhost:5173"],
+  origin: ["http://localhost:5174", "http://localhost:5173","https://jade-seahorse-997ed8.netlify.app"],
   optionsSuccessStatus: 200,
 };
 
