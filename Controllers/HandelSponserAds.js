@@ -12,8 +12,8 @@ const Payment = {
     payment_method: "paypal",
   },
   redirect_urls: {
-    return_url: "http://localhost:5173" + "/sponserSuccess",
-    cancel_url: "http://localhost:5173" + "/cancel",
+    return_url: "https://jade-seahorse-997ed8.netlify.app" + "/sponserSuccess",
+    cancel_url: "https://jade-seahorse-997ed8.netlify.app" + "/cancel",
   },
   transactions: [
     {
@@ -24,7 +24,7 @@ const Payment = {
         currency: "USD",
         total: "",
       },
-      description: "Boosting your ads on ArzanBuy",
+      description: " thank you for sponsering your logo on arzan buy",
       payment_options: {
         allowed_payment_method: "IMMEDIATE_PAY",
       },

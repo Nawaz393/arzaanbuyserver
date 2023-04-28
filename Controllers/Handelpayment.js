@@ -1,4 +1,3 @@
-
 const approvedad = require("../Models/ApprovedAd");
 const {
   createPayment,
@@ -15,8 +14,8 @@ const Payment = {
     payment_method: "paypal",
   },
   redirect_urls: {
-    return_url: "http://localhost:5173" + "/success",
-    cancel_url: "http://localhost:5173" + "/cancel",
+    return_url: "https://jade-seahorse-997ed8.netlify.app" + "/success",
+    cancel_url: "https://jade-seahorse-997ed8.netlify.app" + "/cancel",
   },
   transactions: [
     {

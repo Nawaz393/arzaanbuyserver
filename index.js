@@ -17,7 +17,7 @@ const options = {
     "http://localhost:5174",
     "http://localhost:5173",
     "https://jade-seahorse-997ed8.netlify.app",
-    "https://bejewelled-crepe-13afca.netlify.app",
+    "https://steady-pithivier-0fa97d.netlify.app",
   ],
   optionsSuccessStatus: 200,
 };
