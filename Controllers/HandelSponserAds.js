@@ -72,9 +72,10 @@ exports.addSponserPendingAd = async (req, res) => {
   Logodata = logodata;
   const { image, userid, link, location, days } = logodata;
 
-  if (!image || !link || !location || !days || !userid) {
+  if (!image || !link  || !days || !userid) {
     return res.status(400).json("image, link are required");
   }
+
 
   const { error, value } = paymentSchema.validate(paymentdata, {
     abortEarly: false,
