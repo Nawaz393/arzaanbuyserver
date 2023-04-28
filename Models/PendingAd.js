@@ -56,6 +56,21 @@ const adSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  // boost: {
+  //   boosted: {
+  //     type: Boolean,
+  //     required: false,
+  //     default: false,
+  //   },
+  //   from: {
+  //     type: Date,
+  //     required: false,
+  //   },
+  //   to: {
+  //     type: Date,
+  //     required: false,
+  //   },
+  // },
 });
 
 module.exports = mongoose.model("PendingAd", adSchema);

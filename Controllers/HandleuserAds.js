@@ -8,6 +8,7 @@ const Compress = require("../utils/compress");
 const joi = require("joi");
 const History = require("../Models/History");
 
+
 exports.getUserApprovedAds = async (req, res) => {
   const { userid } = req.query;
 
@@ -57,23 +58,51 @@ exports.updateApprovedAd = async (req, res) => {
   }
 
   try {
-    const update = await approvedAd.findByIdAndUpdate(
-      req.body.id,
-      {
-        $set: {
-          tagline: value.tagline,
-          description: value.description,
-          email: value.email,
-          phone: value.phone,
-          website: value.website,
-        },
-      },
-      { new: true }
+    const update = await approvedAd.findById(
+      // req.body.id,
+      // {
+      //   $set: {
+      //     tagline: value.tagline,
+      //     description: value.description,
+      //     email: value.email,
+      //     phone: value.phone,
+      //     website: value.website,
+      //   },
+      // },
+      // { new: true }
+      req.body.id
     );
+    console.log("update>>>>>>>>>>>>>>>>>>>>>",update);
 
-    if (update.length <= 0 || !update) {
+    const pending = new PendingAd({
+      tagline: value.tagline,
+      description: value.description,
+      email: value.email,
+      phone: value.phone,
+      website: value.website,
+      userid: update.userid,
+      images: update.images,
+      category: update.category,
+      whatsapp: update.whatsapp,
+      address: update.address,
+      price: update.price,
+      name: update.name,
+      detail: update.detail,
+      boost: update.boost,
+    });
+    // if (update.length <= 0 || !update) {
+    //   return res.status(400).send("there is an error in updating the ad");
+    // }
+
+    const save = await pending.save();
+    console.log("save>>>>>>>>>>>>>>>>>>>>>");
+    console.log("save>>>>>>>>>>>>>>>>>>>>>",save);
+    if (!save) {
       return res.status(400).send("there is an error in updating the ad");
     }
+
+    const deletefromApproved = await approvedAd.findByIdAndDelete(req.body.id);
+    console.log("deletefromApproved>>>>>>>>>>>>>>>>>>>>>",deletefromApproved);
     return res.status(200).send("your ad is updated successfully");
   } catch (error) {
     console.log(error);
@@ -294,4 +323,3 @@ exports.deletependingAd = async (req, res) => {
       .send("there is an error in deleting ad please try again");
   }
 };
-
