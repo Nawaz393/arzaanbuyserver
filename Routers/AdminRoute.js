@@ -22,7 +22,14 @@ const { deleteApprovedAd } = require("../Controllers/HandleuserAds");
 const { adminLogin } = require("../Controllers/AdminLogin");
 const AdminAuth = require("../Middlewares/AdminAuth");
 const router = express.Router();
-router.use(AdminAuth);
+
+router.use((req, res, next) => {
+  if (req.path !== "/login") {
+    AdminAuth(req, res, next);
+  } else {
+    next();
+  }
+});
 router.get("/users", getUsers);
 router.put("/users", deactivateUser);
 router.delete("/users", deleteuser);
