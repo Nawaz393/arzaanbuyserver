@@ -174,49 +174,7 @@ exports.Success = async (req, res) => {
     return res.status(400).json("there is an error in payment");
   }
 
-  // paypal.payment.execute(paymentId, payerId, async function (error, payment) {
-  //   if (error) {
-  //     console.error(JSON.stringify(error));
-  //     return res.status(400).json("there is an error in payment");
-  //   } else {
-  //     if (payment.state == "approved") {
-  //       console.log("payment completed successfully");
-  // try {
-  //   const upload = await cloudinary.uploader.upload(Logodata.image, {
-  //     folder: "sponserads",
-  //   });
 
-  //   if (!upload) {
-  //     return res.status(400).json("there is an error in uploading image");
-  //   }
-
-  //   const newSponserApprovedAd = new SponserApprovedAd({
-  //     image: upload.secure_url,
-  //     userid: Logodata.userid,
-  //     link: Logodata.link,
-  //     location: Logodata.location,
-  //     days: Logodata.days,
-  //   });
-
-  //   const resp = await newSponserApprovedAd.save();
-  //   if (!resp) {
-  //     return res
-
-  //       .status(400)
-  //       .json("there is an error in adding sponser ad please try again");
-  //   }
-  //   console.log("sponser ad added successfully");
-  //   console.log(payment);
-  //   return res.status(200).json(payment);
-  // } catch (error) {
-  //   console.log(error);
-  //   return res.status(400).json(error);
-  // }
-  // } else {
-  //   res.status(400).json("payment not successful");
-  // }
-  //}
-  // });
 };
 
 exports.getSponserPendingAds = async (req, res) => {

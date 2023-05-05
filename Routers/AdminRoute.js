@@ -1,5 +1,4 @@
 const express = require("express");
-
 const {
   ApprovedAd,
   getPendingAds,
@@ -21,8 +20,9 @@ const {
 } = require("../Controllers/HandelAdminSponserAds");
 const { deleteApprovedAd } = require("../Controllers/HandleuserAds");
 const { adminLogin } = require("../Controllers/AdminLogin");
-
+const AdminAuth = require("../Middlewares/AdminAuth");
 const router = express.Router();
+router.use(AdminAuth);
 router.get("/users", getUsers);
 router.put("/users", deactivateUser);
 router.delete("/users", deleteuser);

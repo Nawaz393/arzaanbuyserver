@@ -10,7 +10,13 @@ const {
   getFromHistory,
   deleteFromHistory,
 } = require("../Controllers/Historyhandler");
+
+const RequireAuth = require("../Middlewares/RequireAuth");
+
 const router = express.Router();
+
+router.use(RequireAuth);
+
 router.get("/pending", getUserPendingAds);
 router.delete("/pending", deletependingAd);
 router.get("/approved", getUserApprovedAds);

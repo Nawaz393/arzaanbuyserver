@@ -8,7 +8,6 @@ const Compress = require("../utils/compress");
 const joi = require("joi");
 const History = require("../Models/History");
 
-
 exports.getUserApprovedAds = async (req, res) => {
   const { userid } = req.query;
 
@@ -58,21 +57,7 @@ exports.updateApprovedAd = async (req, res) => {
   }
 
   try {
-    const update = await approvedAd.findById(
-      // req.body.id,
-      // {
-      //   $set: {
-      //     tagline: value.tagline,
-      //     description: value.description,
-      //     email: value.email,
-      //     phone: value.phone,
-      //     website: value.website,
-      //   },
-      // },
-      // { new: true }
-      req.body.id
-    );
-    console.log("update>>>>>>>>>>>>>>>>>>>>>",update);
+    const update = await approvedAd.findById(req.body.id);
 
     const pending = new PendingAd({
       tagline: value.tagline,
@@ -90,19 +75,16 @@ exports.updateApprovedAd = async (req, res) => {
       detail: update.detail,
       boost: update.boost,
     });
-    // if (update.length <= 0 || !update) {
-    //   return res.status(400).send("there is an error in updating the ad");
-    // }
 
     const save = await pending.save();
     console.log("save>>>>>>>>>>>>>>>>>>>>>");
-    console.log("save>>>>>>>>>>>>>>>>>>>>>",save);
+    console.log("save>>>>>>>>>>>>>>>>>>>>>", save);
     if (!save) {
       return res.status(400).send("there is an error in updating the ad");
     }
 
     const deletefromApproved = await approvedAd.findByIdAndDelete(req.body.id);
-    console.log("deletefromApproved>>>>>>>>>>>>>>>>>>>>>",deletefromApproved);
+    console.log("deletefromApproved>>>>>>>>>>>>>>>>>>>>>", deletefromApproved);
     return res.status(200).send("your ad is updated successfully");
   } catch (error) {
     console.log(error);
@@ -125,10 +107,6 @@ exports.deleteApprovedAd = async (req, res) => {
         .status(401)
         .send("there is an error in deleting ad please try again");
     }
-
-    // const imagesurl = deletedAd.images;
-
-    // await deleteImage(imagesurl);
 
     addtoHistory(deletedAd);
 
@@ -185,7 +163,7 @@ const uploadImages = async (files) => {
 exports.PostAd = async (req, res) => {
   const data = req.body;
   const images = data.images;
-
+console.log(data)
   // take the images from the body and delete it
   delete data.images;
   console.log(data);
@@ -220,6 +198,9 @@ exports.PostAd = async (req, res) => {
       if (aads >= 2) {
         return res.status(400).send("You can't post more than 2 ads ");
       }
+      if (aads + pads >= 2) {
+        return res.status(400).send("You can't post more than 2 ads ");
+      }
     } catch (error) {
       return res.status(400).send("There is an error in posting your ad");
     }
@@ -231,6 +212,7 @@ exports.PostAd = async (req, res) => {
     return res.status(400).send("Please upload 4 images");
   }
 
+  return;
   // check if the user upload images less than 10MB
   let size;
   for (let image of images) {
@@ -254,12 +236,15 @@ exports.PostAd = async (req, res) => {
       compressimages.push(compressimage);
     } catch (error) {
       console.log(error);
-      return res.status(400).send("there is an error in please retry again");
+      return res.status(400).send("there is an error in compressing please retry");
     }
-    compressimages.push();
+    // compressimages.push();
   }
 
   // upload images to cloudinary and get the url of the images
+
+
+
   const imagesurl = await uploadImages(compressimages);
 
   // check if there is an error in uploading images
