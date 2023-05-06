@@ -2,6 +2,8 @@ const jwt = require("jsonwebtoken");
 const Admin = require("../Models/Adminuser");
 module.exports = async (req, res, next) => {
   const { authorization } = req.headers;
+  console.log(authorization);
+  
 
   if (!authorization) {
     return res.status(401).json("you must be logged in");

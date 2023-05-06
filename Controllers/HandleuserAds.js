@@ -212,7 +212,6 @@ console.log(data)
     return res.status(400).send("Please upload 4 images");
   }
 
-  return;
   // check if the user upload images less than 10MB
   let size;
   for (let image of images) {
